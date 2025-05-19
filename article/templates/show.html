@@ -1,0 +1,34 @@
+<div>
+    <h1>
+        {{article.title}}
+    </h1>
+
+    <a href="{% url 'article:index' %}">
+        글 목록으로 돌아가기
+    </a>
+
+    <div>
+        <h3>
+            작성자 {{article.author.username}}
+        </h3>
+        <div>
+            {% if user.is_authenticated and user == article.author %}
+                <a href="{% url 'article:edit' article.id %}">
+                    글 수정하기
+                </a>
+                            
+                <a href="{% url 'article:delete' article.id %}">
+                    글 삭제하기
+                </a>
+            {% endif %}
+        </div>
+
+        <hr>
+
+        <p>
+            {{article.content}}
+        </p>
+
+    </div>
+</div>
+

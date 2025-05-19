@@ -1,0 +1,19 @@
+<div>
+    <h1> 글 작성 </h1>
+    <div>
+        <form action="{% url 'article:create' %}" method="POST">
+            {% csrf_token %}
+            <label>
+                제목:
+                <input type="text" name="title"/>
+            </label>
+            <br><br>
+            <label>
+                내용:
+                <textarea name="content" rows="30" cols="30"></textarea>
+            </label>
+            <br><br>
+            <input type="submit" value="작성">
+        </form>
+    </div>
+</div>

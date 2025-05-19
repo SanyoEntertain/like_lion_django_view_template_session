@@ -1,0 +1,41 @@
+<div>
+    <a href="{% url 'article:create' %}"> 글 작성하러 가기</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>
+                    제목
+                </td>
+                <td>
+                    작성자
+                </td>
+                <td>
+                    작성일
+                </td>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for article in articles %}
+            <tr>
+                <td>
+                    <a href="{% url 'article:show' article.id %}">
+                        {{article.title}}
+                    </a>
+                </td>
+
+                <td>
+                    {{article.author.username}}
+                </td>
+
+                <td>
+                    {{article.created_at}}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+</div>
+
