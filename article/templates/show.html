@@ -1,59 +1,57 @@
-<div>
-    <h1>
-        {{article.title}}
-    </h1>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ article.title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
 
-    <a href="{% url 'article:index' %}">
-        글 목록으로 돌아가기
-    </a>
+<div class="container mt-5">
+    <h1 class="mb-4">{{ article.title }}</h1>
 
-    <div>
-        <h3>
-            작성자 {{article.author.username}}
-        </h3>
-        <div>
-            {% if user.is_authenticated and user == article.author %}
-                <a href="{% url 'article:edit' article.id %}">
-                    글 수정하기
-                </a>
-                            
-                <a href="{% url 'article:delete' article.id %}">
-                    글 삭제하기
-                </a>
-            {% endif %}
+    <a href="{% url 'article:index' %}" class="btn btn-secondary mb-3">글 목록으로 돌아가기</a>
+
+    <div class="card p-4 mb-4 shadow-sm">
+        <h5 class="mb-3">작성자: {{ article.author.username }}</h5>
+
+        {% if user.is_authenticated and user == article.author %}
+        <div class="mb-3">
+            <a href="{% url 'article:edit' article.id %}" class="btn btn-outline-primary me-2">글 수정하기</a>
+            <a href="{% url 'article:delete' article.id %}" class="btn btn-outline-danger">글 삭제하기</a>
         </div>
+        {% endif %}
 
         <hr>
-
-        <p>
-            {{article.content}}
-        </p>
+        <p class="mt-3">{{ article.content }}</p>
     </div>
 
     <hr>
 
-    <div>
-        <h1>댓글</h1>
+    <div class="mt-5">
+        <h2 class="mb-4">댓글</h2>
+
         {% for comment in comments %}
-        <div>
-            <h3>작성자 {{comment.author.username}}</h3>
-            <p>
-                {{comment.content}}
-            </p>
+        <div class="card p-3 mb-3 shadow-sm">
+            <h6 class="fw-bold">작성자: {{ comment.author.username }}</h6>
+            <p class="mb-0">{{ comment.content }}</p>
         </div>
         {% endfor %}
 
-        <form action="{% url 'article:create_comment' article.id %}" method="POST">
-            {% csrf_token %}
-            <label>
-                댓글 추가하기:
-                <br>
-                <textarea name="content" rows="10" cols="30"></textarea>
-            </label>
-            <br>
-            <input type="submit" value="댓글 작성">
-        </form>
+        <div class="card p-4 shadow-sm mt-4">
+            <form action="{% url 'article:create_comment' article.id %}" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="content" class="form-label">댓글 추가하기</label>
+                    <textarea id="content" name="content" rows="5" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">댓글 작성</button>
+            </form>
+        </div>
     </div>
-
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
