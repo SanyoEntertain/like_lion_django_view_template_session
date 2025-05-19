@@ -1,23 +1,17 @@
-# Django Serengeti 예제
+### 템플릿 태그 정리
 
-## Contents
+참고 자료: https://docs.djangoproject.com/en/5.2/ref/templates/builtins/
 
-### 프로젝트 시작!
 
-### 게시글과 댓글 View와 Template 구성하기
+comment: {% comment %} ~ {% endcomment %} -> 안에 있는 것 무시. 주석과 비슷..
 
-#### 실습
-- 게시글과 댓글 View와 Template 구성하기
-- 게시글 관련 url과 views를 먼저 정의해보자
-- 게시글 조회 페이지를 만들어보자
-- 게시글 목록 페이지를 만들어보자
-- 게시글 생성 페이지를 만들어보자
-- 게시글 수정 페이지를 만들어보자
+if...endif: 이 태그 안에서 if 문이 동작.
+for...endfor: 이 태그 안에서 for문 동작.
+firstof: {% firstof val1 val2 val3%} 일 때, 비어있지 않은 첫번째 값을 받아온다.
 
-### 과제
+for ...empty: for와 endfor태그 안에 empty 태그가 있을 수 있다. 이전에 출력, 혹은 리턴된 것이 없다면 실행된다.
+값이 없을 때 뭐라도 표시할 때 사용하는 듯하다.
 
-1. 템플릿 태그 정리
-2. 댓글 기능 구현하기
-3. 내가 작성한 글만 수정/삭제할 수 있도록 구현
-4. CDN을 템플릿에 적용시키기
-5. 페이지네이션 적용하기
+ifchanged-endifchanged: 어떻게 동작하는지는 모르겠지만 이 안에 있는 태그, 값이 변경될 경우에만 실행된다. event 처럼 동작하는지는 모르겠다.
+
+include: {% include template_name %}
