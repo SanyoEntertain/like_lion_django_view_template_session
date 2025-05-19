@@ -1,10 +1,16 @@
 from django.shortcuts import render, redirect
 
 from article.models import Article, Comment
+from django.core.paginator import Paginator
+
 
 def index(request):
-    articles = Article.objects.all()
-    return render(request, 'index.html', {'articles' : articles})
+    page = request.GET.get('page', '1')
+    articles = Article.objects.order_by('-created_at')
+    paginator = Paginator(articles, 3)
+    page_obj = paginator.get_page(page)
+
+    return render(request, 'index.html', {'articles' : page_obj})
 
 def show(request, pk):
     article = Article.objects.get(pk=pk)
