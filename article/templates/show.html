@@ -28,7 +28,32 @@
         <p>
             {{article.content}}
         </p>
-
     </div>
+
+    <hr>
+
+    <div>
+        <h1>댓글</h1>
+        {% for comment in comments %}
+        <div>
+            <h3>작성자 {{comment.author.username}}</h3>
+            <p>
+                {{comment.content}}
+            </p>
+        </div>
+        {% endfor %}
+
+        <form action="{% url 'article:create_comment' article.id %}" method="POST">
+            {% csrf_token %}
+            <label>
+                댓글 추가하기:
+                <br>
+                <textarea name="content" rows="10" cols="30"></textarea>
+            </label>
+            <br>
+            <input type="submit" value="댓글 작성">
+        </form>
+    </div>
+
 </div>
 

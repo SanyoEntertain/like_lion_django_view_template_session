@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from article.models import Article
+from article.models import Article, Comment
 
 def index(request):
     articles = Article.objects.all()
@@ -8,8 +8,9 @@ def index(request):
 
 def show(request, pk):
     article = Article.objects.get(pk=pk)
+    comments = Comment.objects.filter(article_id = pk)
 
-    return render(request, 'show.html', {'article' : article})
+    return render(request, 'show.html', {'article' : article, 'comments' : comments})
 
 def create(request):
     if request.method == 'POST':
@@ -39,3 +40,15 @@ def delete(request, pk):
     article = Article.objects.get(pk=pk)
     article.delete()
     return redirect('article:index')
+
+
+# 여기 pk는 article id.
+def create_comment(request, pk):
+    article = Article.objects.get(pk=pk)
+    if request.method == 'POST':
+        comment = Comment()
+        comment.article = article
+        comment.content = request.POST['content']
+        comment.author = request.user
+        comment.save()
+    return redirect('article:show', pk=pk)
